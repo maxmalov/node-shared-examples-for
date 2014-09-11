@@ -1,0 +1,26 @@
+{
+  "name": "shared-examples-for",
+  "version": "0.0.1",
+  "description": "Shared behaviour helpers",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxmalov/node-shared-examples-for.git"
+  },
+  "keywords": [
+    "shared",
+    "examples",
+    "mocha",
+    "jasmine",
+    "rspec"
+  ],
+  "author": "Maxim Malov <m.malov.v@gmail.com>",
+  "license": "The MIT License (MIT)",
+  "bugs": {
+    "url": "https://github.com/maxmalov/node-shared-examples-for/issues"
+  },
+  "homepage": "https://github.com/maxmalov/node-shared-examples-for"
+}
