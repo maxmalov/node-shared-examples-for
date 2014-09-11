@@ -4,7 +4,7 @@
   "description": "Shared behaviour helpers",
   "main": "index.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "mocha --reporter spec --ui bdd"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/maxmalov/node-shared-examples-for/issues"
   },
-  "homepage": "https://github.com/maxmalov/node-shared-examples-for"
+  "homepage": "https://github.com/maxmalov/node-shared-examples-for",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.21.4",
+    "sinon": "^1.10.3",
+    "sinon-chai": "^2.5.0"
+  }
 }
