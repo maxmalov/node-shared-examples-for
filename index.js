@@ -1,15 +1,38 @@
-'use strict';
+(function (factory) {
+  'use strict';
 
-var assert = require('assert');
-var sharedScope = {};
+  if (typeof define === 'function' && define.amd) {
+    define([], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory();
+  } else {
+    window.$shared = factory();
+  }
+}(function () {
+  'use strict';
 
-exports.examplesFor = function (title, fn) {
-  assert(!sharedScope[title], 'Shared examples "' + title + '" was registered already.');
-  assert.equal(typeof fn, 'function', 'Shared examples must be a function');
-  sharedScope[title] = fn;
-};
+  var sharedScope = {};
 
-exports.behaveLike = function (title) {
-  assert(sharedScope[title], 'Shared examples "' + title + '" was not registered.');
-  sharedScope[title]();
-};
+  return {
+    examplesFor: function (title, fn) {
+
+      if (sharedScope[title]) {
+        throw new Error('Shared examples "' + title + '" was registered already.');
+      }
+
+      if (typeof fn !== 'function') {
+        throw new Error('Shared examples must be a function');
+      }
+
+      sharedScope[title] = fn;
+    },
+
+    behaveLike: function (title) {
+      if (!sharedScope[title]) {
+        throw new Error('Shared examples "' + title + '" was not registered.');
+      }
+      sharedScope[title]();
+    }
+  };
+
+}));
