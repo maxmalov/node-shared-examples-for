@@ -18,5 +18,24 @@ describe('Shared examples', function () {
     expect(this.examples).to.have.been.calledOnce;
   });
 
+  it('should throw an exception when examples was not registered', function () {
+    expect(function () {
+      shared.behaveLike('bad examples');
+    }).to.throw('Shared examples "bad examples" was not registered');
+  });
+
+  it('should throw an exception when examples was already registered', function () {
+    expect(function () {
+      shared.examplesFor('examples duplication', function () { });
+      shared.examplesFor('examples duplication', function () { });
+    }).to.throw('Shared examples "examples duplication" was registered already');
+  });
+
+  it('should throw an exception when shared examples is not a funciton', function () {
+    expect(function () {
+      shared.examplesFor('invalid examples', {});
+    }).to.throw('Shared examples must be a function');
+  });
+
 });
 
