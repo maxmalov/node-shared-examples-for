@@ -1,6 +1,6 @@
 {
   "name": "shared-examples-for",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Shared behaviour helpers",
   "main": "index.js",
   "scripts": {
