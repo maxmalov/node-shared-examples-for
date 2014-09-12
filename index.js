@@ -25,15 +25,20 @@
       }
 
       sharedScope[title] = fn;
+
+      return this;
     },
 
     shouldBehaveLike: function (title) {
+      var args = [].slice.call(arguments, 1);
 
       if (!sharedScope[title]) {
         throw new Error('Shared examples "' + title + '" was not registered.');
       }
 
-      sharedScope[title]();
+      sharedScope[title].apply(null, args);
+
+      return this;
     }
   };
 

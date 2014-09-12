@@ -8,13 +8,15 @@ var shared = require('../index');
 
 describe('Shared examples', function () {
 
-  before(function () {
+  beforeEach(function () {
     this.examples = sinon.stub();
-    shared.examplesFor('some title', this.examples);
   });
 
   it('should call examples function', function () {
-    shared.shouldBehaveLike('some title');
+    shared
+      .examplesFor('some title', this.examples)
+
+      .shouldBehaveLike('some title');
     expect(this.examples).to.have.been.calledOnce;
   });
 
@@ -26,8 +28,9 @@ describe('Shared examples', function () {
 
   it('should throw an exception when examples was already registered', function () {
     expect(function () {
-      shared.examplesFor('examples duplication', function () { });
-      shared.examplesFor('examples duplication', function () { });
+      shared
+        .examplesFor('examples duplication', function () { })
+        .examplesFor('examples duplication', function () { });
     }).to.throw('Shared examples "examples duplication" was registered already');
   });
 
@@ -35,6 +38,13 @@ describe('Shared examples', function () {
     expect(function () {
       shared.examplesFor('invalid examples', {});
     }).to.throw('Shared examples must be a function');
+  });
+
+  it('should pass arguments to an example', function () {
+    shared.examplesFor('example with arguments', this.examples)
+      .shouldBehaveLike('example with arguments', 1, 'string', {}, []);
+
+    expect(this.examples.args[0]).to.deep.eq([1, 'string', {}, []]);
   });
 
 });
