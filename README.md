@@ -9,6 +9,16 @@ Helper can be used with mocha, jasmine runners.
 
 ```js
 
+var clone = function () {
+  return new this();
+};
+
+function Cat() {}
+Cat.prototype.clone = proto.clone;
+
+funciton Dog() {}
+Dog.prototype.clone = proto.clone;
+
 // example with mocha and chai
 
 var expect = require('chai').expect;
@@ -22,10 +32,10 @@ shared.examplesFor('object that implements prototype pattern', function () {
 
 });
 
-describe('Pets', function () {
+describe('Dogs', function () {
 
   before(function () {
-    this.clonable = new Pet();
+    this.clonable = new Dog();
   });
 
   shared.behaveLike('object that implements prototype pattern');
