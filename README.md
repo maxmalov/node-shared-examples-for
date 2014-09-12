@@ -9,47 +9,64 @@ Helper can be used with mocha, jasmine runners.
 
 ```js
 
-var clone = function () {
-  return new this();
-};
+    var clone = function () {
+      return new this();
+    };
 
-function Cat() {}
-Cat.prototype.clone = proto.clone;
+    function Cat() {}
+    Cat.prototype.clone = proto.clone;
 
-funciton Dog() {}
-Dog.prototype.clone = proto.clone;
+    funciton Dog() {}
+    Dog.prototype.clone = proto.clone;
 
-// example with mocha and chai
+    // example with mocha and chai
 
-var expect = require('chai').expect;
-var shared = require('shared-examples-for');
+    var expect = require('chai').expect;
+    var shared = require('shared-examples-for');
 
-shared.examplesFor('object that implements prototype pattern', function () {
+    shared.examplesFor('object that implements prototype pattern', function () {
 
-  it('should have clone method', function () {
-    expect(this.clonable).to.have.property('clone').that.is.a('function');
-  });
+      it('should have clone method', function () {
+        expect(this.clonable).to.have.property('clone').that.is.a('function');
+      });
 
-});
+    });
 
-describe('Dogs', function () {
+    describe('Dogs', function () {
 
-  before(function () {
-    this.clonable = new Dog();
-  });
+      before(function () {
+        this.clonable = new Dog();
+      });
 
-  shared.shouldBehaveLike('object that implements prototype pattern');
+      shared.shouldBehaveLike('object that implements prototype pattern');
 
-});
+    });
 
-describe('Cats', function () {
+    describe('Cats', function () {
 
-  before(function () {
-    this.clonable = new Cat();
-  });
-  
-  shared.shouldBehaveLike('object that implements prototype pattern');
-  
-});
+      before(function () {
+        this.clonable = new Cat();
+      });
+
+      shared.shouldBehaveLike('object that implements prototype pattern');
+
+    });
+
+```
+
+Also shared examples can be defined with arguments
+
+```js
+
+    shared.examplesFor('my error exception', function (Err, message) {
+
+      it('should throw my custom error', function () {
+        expect(this.badMethod).to.throw(Err);
+        expect(this.badMethod).to.throw(message);
+      });
+
+    });
+
+    shared.shouldBehaveLike('my error exception', MyError, 'Error message');
 
 ```
