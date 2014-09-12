@@ -27,10 +27,12 @@
       sharedScope[title] = fn;
     },
 
-    behaveLike: function (title) {
+    shouldBehaveLike: function (title) {
+
       if (!sharedScope[title]) {
         throw new Error('Shared examples "' + title + '" was not registered.');
       }
+
       sharedScope[title]();
     }
   };

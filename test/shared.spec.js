@@ -14,13 +14,13 @@ describe('Shared examples', function () {
   });
 
   it('should call examples function', function () {
-    shared.behaveLike('some title');
+    shared.shouldBehaveLike('some title');
     expect(this.examples).to.have.been.calledOnce;
   });
 
   it('should throw an exception when examples was not registered', function () {
     expect(function () {
-      shared.behaveLike('bad examples');
+      shared.shouldBehaveLike('bad examples');
     }).to.throw('Shared examples "bad examples" was not registered');
   });
 

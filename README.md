@@ -38,7 +38,7 @@ describe('Dogs', function () {
     this.clonable = new Dog();
   });
 
-  shared.behaveLike('object that implements prototype pattern');
+  shared.shouldBehaveLike('object that implements prototype pattern');
 
 });
 
@@ -48,7 +48,7 @@ describe('Cats', function () {
     this.clonable = new Cat();
   });
   
-  shared.behaveLike('object that implements prototype pattern');
+  shared.shouldBehaveLike('object that implements prototype pattern');
   
 });
 

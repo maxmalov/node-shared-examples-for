@@ -11,6 +11,7 @@
     "url": "https://github.com/maxmalov/node-shared-examples-for.git"
   },
   "keywords": [
+    "bdd",
     "shared",
     "examples",
     "mocha",
