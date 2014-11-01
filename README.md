@@ -5,68 +5,52 @@ Inspired by `shared_example_for` from RSpec
 
 # Usage
 
-Helper can be used with mocha, jasmine runners.
+Helper can be used with mocha, jasmine runners. Also shared examples can be defined with arguments, ex (mocha + chai):
 
 ```js
 
-    var clone = function () {
-      return new this();
-    };
+var expect = require('chai').expect;
+var shared = require('shared-examples-for');
 
-    function Cat() {}
-    Cat.prototype.clone = proto.clone;
+shared.examplesFor('user', function (userAttributes) { // shared example can have any number of arguments
 
-    funciton Dog() {}
-    Dog.prototype.clone = proto.clone;
+  it('should have login', function () {
+    expect(this.user).to.have.property('login', userAttributes.login);
+  });
 
-    // example with mocha and chai
+  it('should have email', function () {
+    expect(this.user).to.have.property('email', userAttributes.email);
+  });
 
-    var expect = require('chai').expect;
-    var shared = require('shared-examples-for');
+});
 
-    shared.examplesFor('object that implements prototype pattern', function () {
+describe('Users', function () {
+  var attributes = {
+    login: 'foo',
+    email: 'bar@baz.test'
+  };
 
-      it('should have clone method', function () {
-        expect(this.clonable).to.have.property('clone').that.is.a('function');
-      });
-
+  describe('Usual user', function () {
+    before(function () {
+      this.user = new User(attributes);
     });
 
-    describe('Dogs', function () {
+    shared.shouldBehaveLike('user', attributes); // all arguments after shared example title will be passed to shared example function
+  });
 
-      before(function () {
-        this.clonable = new Dog();
-      });
+  describe('Admin', function () {
 
-      shared.shouldBehaveLike('object that implements prototype pattern');
-
+    before(function () {
+      this.user = new Admin(attributes);
     });
 
-    describe('Cats', function () {
+    shared.shouldBehaveLike('user', attributes);
 
-      before(function () {
-        this.clonable = new Cat();
-      });
-
-      shared.shouldBehaveLike('object that implements prototype pattern');
-
+    it('should be admin', function () {
+      expect(this.user.isAdmin()).to.be.true;
     });
+  });
 
-```
-
-Also shared examples can be defined with arguments
-
-```js
-
-    shared.examplesFor('my error exception', function (Err, message) {
-
-      it('should throw my custom error', function () {
-        expect(this.badMethod).to.throw(Err);
-        expect(this.badMethod).to.throw(message);
-      });
-
-    });
-
-    shared.shouldBehaveLike('my error exception', MyError, 'Error message');
+});
 
 ```

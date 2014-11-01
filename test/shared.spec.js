@@ -13,10 +13,9 @@ describe('Shared examples', function () {
   });
 
   it('should call examples function', function () {
-    shared
-      .examplesFor('some title', this.examples)
-
+    shared.examplesFor('some title', this.examples)
       .shouldBehaveLike('some title');
+
     expect(this.examples).to.have.been.calledOnce;
   });
 
@@ -48,4 +47,3 @@ describe('Shared examples', function () {
   });
 
 });
-
